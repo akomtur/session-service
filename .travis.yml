@@ -1,3 +1,7 @@
 language: scala
+script: "sbt coveralls"
+jdk:
+  - oraclejdk7
+  - openjdk7
 scala:
   - 2.11.4
