@@ -1,5 +1,7 @@
 package de.kaubisch.api
 
+import java.util.concurrent.TimeUnit
+
 import akka.actor.{ActorLogging, ActorRefFactory}
 import akka.persistence.journal.JournalSpec
 import de.kaubisch.session.RestSessionService
@@ -10,11 +12,15 @@ import spray.testkit.Specs2RouteTest
 import spray.http.StatusCodes._
 import de.kaubisch.session.api.SessionJsonConverter._
 
+import scala.concurrent.duration.{Duration, FiniteDuration}
+
 /**
  * Created by kaubisch on 06.02.15.
  */
 class SessionRouteSpec extends Specification with Specs2RouteTest with HttpService with RestSessionService {
+  implicit val routeTestTimeout = RouteTestTimeout(Duration(10, TimeUnit.SECONDS))
   override def actorRefFactory: ActorRefFactory = system
+
 
   sequential
 
