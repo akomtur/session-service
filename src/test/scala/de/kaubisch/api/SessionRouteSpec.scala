@@ -2,17 +2,16 @@ package de.kaubisch.api
 
 import java.util.concurrent.TimeUnit
 
-import akka.actor.{ActorLogging, ActorRefFactory}
-import akka.persistence.journal.JournalSpec
+import akka.actor.ActorRefFactory
 import de.kaubisch.session.RestSessionService
 import de.kaubisch.session.api.Session
+import de.kaubisch.session.api.SessionJsonConverter._
 import org.specs2.mutable.Specification
+import spray.http.StatusCodes._
 import spray.routing.HttpService
 import spray.testkit.Specs2RouteTest
-import spray.http.StatusCodes._
-import de.kaubisch.session.api.SessionJsonConverter._
 
-import scala.concurrent.duration.{Duration, FiniteDuration}
+import scala.concurrent.duration.Duration
 
 /**
  * Created by kaubisch on 06.02.15.

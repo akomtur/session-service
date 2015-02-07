@@ -1,5 +1,5 @@
 language: scala
-script: "sbt coveralls"
+script: "sbt clean compile coverage test coveralls"
 jdk:
   - oraclejdk7
   - openjdk7
