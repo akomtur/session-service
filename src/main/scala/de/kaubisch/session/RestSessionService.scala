@@ -14,15 +14,12 @@ import spray.routing.directives.RouteDirectives
 
 import scala.concurrent.duration.DurationInt
 
-/**
- * Created by kaubisch on 03.02.15.
- */
 trait RestSessionService extends RouteDirectives with HttpService {
 
   implicit val timeout = Timeout(30.seconds)
   implicit val ec = actorRefFactory.dispatcher
 
-  val service = actorRefFactory.actorOf(Props(classOf[PersistSessionsService]), "session-service")
+  val service = actorRefFactory.actorOf(Props(new PersistSessionsService(SessionPersistentActor.props)), "session-service")
 
   val sessionRoutes = {
     pathPrefix("session") {

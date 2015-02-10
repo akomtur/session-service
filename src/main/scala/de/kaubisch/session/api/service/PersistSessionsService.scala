@@ -17,10 +17,7 @@ case class DeleteSession(uuid : String)
 case class AddAttribute(uuid: String, key: String, value : String)
 case class RemoveAttribute(uuid: String, key: String)
 
-/**
- * Created by kaubisch on 02.02.15.
- */
-class PersistSessionsService extends Actor with ActorLogging {
+class PersistSessionsService(propsFactory: String => Props) extends Actor with ActorLogging {
   implicit val timeout = Timeout(10.seconds)
   implicit val ec = context.dispatcher
 
@@ -54,7 +51,7 @@ class PersistSessionsService extends Actor with ActorLogging {
 
   private def getById(name : String) : ActorRef = {
     val actorName = s"persistent-$name"
-    context.child(actorName) getOrElse context.actorOf(Props(classOf[SessionPersistentActor], name).withDispatcher("receiver-dispatcher"), actorName)
+    context.child(actorName) getOrElse context.actorOf(propsFactory(name).withDispatcher("receiver-dispatcher"), actorName)
   }
 
   private def createId() : String = UUID.randomUUID().toString;

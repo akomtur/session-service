@@ -9,9 +9,6 @@ import spray.can.Http
 
 import scala.concurrent.duration._
 
-/**
- * Created by kaubisch on 04.02.15.
- */
 object Boot extends App {
   implicit val system = ActorSystem("session-system")
   val service = system.actorOf(Props[SessionServiceActor], "session-rest-service")
